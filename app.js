@@ -18,7 +18,7 @@ app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
 //send server side log to browser
-var nodemonkey = require('node-monkey').start({host: "127.0.0.1", port:"50500"});
+// var nodemonkey = require('node-monkey').start({host: "127.0.0.1", port:"50500"});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

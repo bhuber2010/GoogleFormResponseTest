@@ -1,4 +1,5 @@
 
+require('dotenv').config();
 
 var express = require('express');
 var path = require('path');
@@ -8,6 +9,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var formres = require('./routes/formres');
+var airtable = require('./routes/airtable');
 
 var app = express();
 
@@ -16,7 +18,9 @@ app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
 //send server side log to browser
-// var nodemonkey = require('node-monkey').start({host: "127.0.0.1", port:"50500"});
+if (env == 'development') {
+  require('node-monkey').start({host: "127.0.0.1", port:"50500"});
+}
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,6 +31,7 @@ app.use(cookieParser());
 
 app.use('/', routes);
 app.use('/formres', formres);
+app.use('/airtable', airtable);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
